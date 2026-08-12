@@ -67,8 +67,28 @@ function Logo() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [openFaq, setOpenFaq] = useState(0)
+  const [quote, setQuote] = useState({
+    name: '',
+    phone: '',
+    service: 'Instalación de Windows',
+    description: ''
+  })
 
-  const whatsapp = 'https://wa.me/521XXXXXXXXXX?text=Hola%20JS%20Tech%20Solutions,%20quiero%20cotizar%20un%20servicio.'
+  const whatsappNumber = '5215515077382'
+  const whatsapp = `https://wa.me/${whatsappNumber}?text=Hola%20JS%20Tech%20Solutions,%20quiero%20cotizar%20un%20servicio.`
+
+  const handleQuoteSubmit = (e) => {
+    e.preventDefault()
+    const message = [
+      'Hola JS Tech Solutions, quiero solicitar una cotización.',
+      '',
+      `Nombre: ${quote.name}`,
+      `Teléfono: ${quote.phone}`,
+      `Servicio: ${quote.service}`,
+      `Descripción: ${quote.description || 'Sin descripción adicional'}`
+    ].join('\n')
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <>
@@ -266,12 +286,48 @@ function App() {
                 <span><Headphones size={16}/> Atención remota y presencial</span>
               </div>
             </div>
-            <div className="contactCard">
+            <div className="contactCard quoteCard">
               <small>SOLICITA TU COTIZACIÓN</small>
-              <h3>Contáctanos directamente</h3>
-              <p>La forma más rápida es por WhatsApp.</p>
-              <a href={whatsapp} target="_blank" className="whatsappBtn"><MessageCircle size={19}/> Contactar por WhatsApp</a>
-              <a href="mailto:CORREO@EJEMPLO.COM" className="mailBtn"><Mail size={16}/> CORREO@EJEMPLO.COM</a>
+              <h3>Cuéntanos qué necesitas</h3>
+              <p>Completa los datos y te llevamos directo a WhatsApp con el mensaje listo.</p>
+
+              <form className="quoteForm" onSubmit={handleQuoteSubmit}>
+                <label>
+                  <span>Nombre</span>
+                  <input type="text" required placeholder="Tu nombre" value={quote.name} onChange={(e)=>setQuote({...quote, name:e.target.value})} />
+                </label>
+                <label>
+                  <span>Teléfono</span>
+                  <input type="tel" required placeholder="55 1234 5678" value={quote.phone} onChange={(e)=>setQuote({...quote, phone:e.target.value})} />
+                </label>
+                <label>
+                  <span>Servicio</span>
+                  <select value={quote.service} onChange={(e)=>setQuote({...quote, service:e.target.value})}>
+                    <option>Instalación de Windows</option>
+                    <option>Windows + Office + Drivers</option>
+                    <option>Limpieza interna</option>
+                    <option>Instalación de SSD</option>
+                    <option>Instalación de RAM</option>
+                    <option>Configuración de impresora</option>
+                    <option>Configuración de WiFi</option>
+                    <option>Soporte a domicilio</option>
+                    <option>Soporte remoto</option>
+                    <option>Servicio para empresa</option>
+                    <option>Otro servicio</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Describe el problema</span>
+                  <textarea rows="4" placeholder="Ej. Mi laptop está muy lenta y quiero instalar un SSD..." value={quote.description} onChange={(e)=>setQuote({...quote, description:e.target.value})} />
+                </label>
+                <button type="submit" className="whatsappBtn quoteSubmit"><MessageCircle size={19}/> Enviar cotización por WhatsApp</button>
+              </form>
+
+              <div className="directContact">
+                <a href="tel:+525515077382">55 1507 7382</a>
+                <span>·</span>
+                <a href="mailto:js6017200@gmail.com">js6017200@gmail.com</a>
+              </div>
             </div>
           </div>
         </section>

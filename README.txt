@@ -45,3 +45,8 @@ CAMBIOS DE ESTA VERSION:
 - Eliminado el apartado Respaldos y datos.
 - Eliminado Respaldo de información de servicios empresariales.
 - Eliminado Recuperación de información de precios.
+
+
+ACTUALIZACION:
+- Formulario de cotizacion conectado a WhatsApp +52 55 1507 7382.
+- Correo: js6017200@gmail.com
